@@ -32,10 +32,32 @@
                                                                            statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
         
         [[RKObjectManager sharedManager] addResponseDescriptor:rd];
+        
+        [[RKObjectManager sharedManager] addFetchRequestBlock:^NSFetchRequest *(NSURL *URL) {
+            if ( [URL.relativePath isEqualToString:@"/active/get_albums"] )
+            {
+                NSFetchRequest* fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Album"];
+                fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES] ];
+                return fetchRequest;
+            }
+            
+            return nil;
+        }];
+        
+        [[RKObjectManager sharedManager] addFetchRequestBlock:^NSFetchRequest *(NSURL *URL) {
+            if ( [URL.relativePath isEqualToString:@"/active/get_albums"] )
+            {
+                NSFetchRequest* fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Play"];
+                fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"play_id" ascending:YES] ];
+                return fetchRequest;
+            }
+            
+            return nil;
+        }];
     }
     
     [[RKObjectManager sharedManager] getObjectsAtPath:@"/active/get_albums"
-              parameters:@{@"user_id":@"3", @"begin":@"0", @"end":@"1378734808"}
+              parameters:@{@"user_id":@"3", @"begin":@"0", @"end":@"3378734808"}
                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                      GetAlbumsResponse* ar = mappingResult.firstObject;
                      block(ar);
