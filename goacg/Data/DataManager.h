@@ -12,8 +12,7 @@
 
 + (DataManager*) sharedInstance;
 
-- (void)asyncQueryPlaysInTimeRange:(NSDate*)afterTime
-                        beforeTime:(NSDate*)beforeTime
-                        onComplete:(void(^)(NSArray*))onComplete
-                            onFail:(void(^)(void))onFail;
+- (NSArray*)queryPlaysInTimeRange:(NSDate*)timeBegin
+                          timeEnd:(NSDate*)timeEnd
+                         onUpdate:(void(^)(void))onUpdate;
 @end

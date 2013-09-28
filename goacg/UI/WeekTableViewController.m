@@ -120,35 +120,36 @@
     // 异步请求数据
     NSDate* beginDate = date;
     NSDate* endDate = [NSDate dateWithTimeInterval:3600 * 24 sinceDate:beginDate];
-    [[DataManager sharedInstance] asyncQueryPlaysInTimeRange:beginDate
-                                                  beforeTime:endDate
-                                                  onComplete:^(NSArray* plays) {
-                                                      cell.labNum.text = [NSString stringWithFormat:@"%d番", plays.count];
-                                                      
-                                                      if ( plays.count > 0 ) {
-                                                          Play* play = plays[0];
-                                                          [cell.imgView0 setImageWithURL:[NSURL URLWithString:play.album.icon_32x32] placeholderImage:[UIImage imageNamed:@"placeholder-icon.png"]];
-                                                      }
-                                                      if ( plays.count > 1 ) {
-                                                          Play* play = plays[1];
-                                                          [cell.imgView1 setImageWithURL:[NSURL URLWithString:play.album.icon_32x32] placeholderImage:[UIImage imageNamed:@"placeholder-icon.png"]];
-                                                      }
-                                                      if ( plays.count > 2 ) {
-                                                          Play* play = plays[2];
-                                                          [cell.imgView2 setImageWithURL:[NSURL URLWithString:play.album.icon_32x32] placeholderImage:[UIImage imageNamed:@"placeholder-icon.png"]];
-                                                      }
-                                                      if ( plays.count > 3 ) {
-                                                          Play* play = plays[3];
-                                                          [cell.imgView3 setImageWithURL:[NSURL URLWithString:play.album.icon_32x32] placeholderImage:[UIImage imageNamed:@"placeholder-icon.png"]];
-                                                      }
-                                                      if ( plays.count > 4 ) {
-                                                          Play* play = plays[4];
-                                                          [cell.imgView4 setImageWithURL:[NSURL URLWithString:play.album.icon_32x32] placeholderImage:[UIImage imageNamed:@"placeholder-icon.png"]];
-                                                      }
-                                                  } onFail:^(void){
-                                                      
-                                                  }];
+    NSArray* plays = [[DataManager sharedInstance] queryPlaysInTimeRange:beginDate timeEnd:endDate onUpdate:^{
+        [tableView reloadData];
+    }];
     
+    if ( plays != nil )
+    {
+        cell.labNum.text = [NSString stringWithFormat:@"%d番", plays.count];
+        
+        if ( plays.count > 0 ) {
+            Play* play = plays[0];
+            [cell.imgView0 setImageWithURL:[NSURL URLWithString:play.album.icon_32x32] placeholderImage:[UIImage imageNamed:@"placeholder-icon.png"]];
+        }
+        if ( plays.count > 1 ) {
+            Play* play = plays[1];
+            [cell.imgView1 setImageWithURL:[NSURL URLWithString:play.album.icon_32x32] placeholderImage:[UIImage imageNamed:@"placeholder-icon.png"]];
+        }
+        if ( plays.count > 2 ) {
+            Play* play = plays[2];
+            [cell.imgView2 setImageWithURL:[NSURL URLWithString:play.album.icon_32x32] placeholderImage:[UIImage imageNamed:@"placeholder-icon.png"]];
+        }
+        if ( plays.count > 3 ) {
+            Play* play = plays[3];
+            [cell.imgView3 setImageWithURL:[NSURL URLWithString:play.album.icon_32x32] placeholderImage:[UIImage imageNamed:@"placeholder-icon.png"]];
+        }
+        if ( plays.count > 4 ) {
+            Play* play = plays[4];
+            [cell.imgView4 setImageWithURL:[NSURL URLWithString:play.album.icon_32x32] placeholderImage:[UIImage imageNamed:@"placeholder-icon.png"]];
+        }
+    }
+
     return cell;
 }
 

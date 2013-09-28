@@ -43,16 +43,19 @@
 {
     [self initDataService];
     
-    [GetAlbumsResponse asyncRequest:^(GetAlbumsResponse* response){
-        if ( response != nil )
-        {
-            NSLog(@"request success---->%@", response);
-        }
-        else
-        {
-            NSLog(@"request failed");
-        }
-    }];
+//    [GetAlbumsResponse asyncRequest:@"3"
+//                          afterTime:[NSDate dateWithTimeIntervalSince1970:0]
+//                          beforeTime:[NSDate dateWithTimeIntervalSince1970:INT_MAX]
+//                              block:^(GetAlbumsResponse* response){
+//                                    if ( response != nil )
+//                                    {
+//                                        NSLog(@"request success---->%@", response);
+//                                    }
+//                                    else
+//                                    {
+//                                        NSLog(@"request failed");
+//                                    }
+//                                }];
     
     // Override point for customization after application launch.
     return YES;

@@ -11,7 +11,10 @@
 
 @interface GetAlbumsResponse : NSObject
 + (RKObjectMapping*) mapping;
-+ (void)asyncRequest:(void (^)(GetAlbumsResponse* response))block;
++ (void)asyncRequest:(NSString*)userId
+           beginTime:(NSDate*)beginTime
+          endTime:(NSDate*)endTime
+               block:(void (^)(GetAlbumsResponse* response))block;
 
 @property (nonatomic, retain) NSNumber * error_code;
 @property (nonatomic, retain) NSArray  * albums;
