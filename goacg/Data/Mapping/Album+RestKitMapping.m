@@ -18,8 +18,10 @@
     
     RKEntityMapping* mapping = [RKEntityMapping mappingForEntityForName:@"Album" inManagedObjectStore:managedObjectStore];
     [mapping addAttributeMappingsFromArray:@[@"id", @"title", @"icon_32x32", @"bigcover", @"sub", @"start_time", @"update_time"]];
-    mapping.identificationAttributes = @[@"id"];
     [mapping addRelationshipMappingWithSourceKeyPath:@"plays" mapping:[Play mapping]];
+    
+    RKRelationshipMapping* rm = [mapping mappingForSourceKeyPath:@"plays"];
+    rm.assignmentPolicy = RKAssignmentPolicyUnion;
     return mapping;
 }
 @end

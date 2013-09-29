@@ -17,7 +17,6 @@
     
     RKEntityMapping* mapping = [RKEntityMapping mappingForEntityForName:@"Play" inManagedObjectStore:managedObjectStore];
     [mapping addAttributeMappingsFromArray:@[@"play_id", @"vol", @"show_time", @"show_url", @"bigcover", @"update_time"]];
-    mapping.identificationAttributes = @[@"play_id"];
     return mapping;
 }
 @end
